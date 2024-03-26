@@ -19,25 +19,58 @@ public class TankPawn : Pawn
     // Move the TankPawn forward
     public override void MoveForward()
     {
-        // TODO: Implement MoveForward
-        Debug.Log("MoveForward");
+        // Check if the mover is null
+        if (mover != null)
+        {
+            // Move the TankPawn forward
+            mover.Move(transform.forward, moveSpeed);
+        }
+        else
+        {
+            Debug.LogWarning("WARNING: No Mover in TankPawn.MoveForward()!");
+        }
     }
 
     public override void MoveBackward()
     {
-        // TODO: Implement MoveBackward
-        Debug.Log("MoveBackward");
+        // Check if the mover is null
+        if (mover != null)
+        {
+            // Move the TankPawn backward
+            mover.Move(transform.forward, -moveSpeed);
+        }
+        else
+        {
+            Debug.LogWarning("WARNING: No Mover in TankPawn.MoveBackward()!");
+        }
+        
     }
 
     public override void RotateClockwise()
     {
-        // TODO: Implement RotateClockwise
-        Debug.Log("RotateClockwise");
+        // Check if the mover is null
+        if (mover != null)
+        {
+            // Rotate the TankPawn clockwise
+            mover.Rotate(turnSpeed);
+        }
+        else
+        {
+            Debug.LogWarning("WARNING: No Mover in TankPawn.RotateClockwise()!");
+        }
     }
 
     public override void RotateCounterClockwise()
     {
-        // TODO: Implement RotateCounterClockwise
-        Debug.Log("RotateCounterClockwise");
+        // Check if the mover is null
+        if (mover != null)
+        {
+            // Rotate the TankPawn counterclockwise
+            mover.Rotate(-turnSpeed);
+        }
+        else
+        {
+            Debug.LogWarning("WARNING: No Mover in TankPawn.RotateCounterClockwise()!");
+        }
     }
 }
