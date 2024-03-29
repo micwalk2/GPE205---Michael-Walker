@@ -14,6 +14,9 @@ public class TankMover : Mover
     {
         // Get the Rigidbody component
         rb = GetComponent<Rigidbody>();
+
+        // Get transform component
+        tf = GetComponent<Transform>();
     }
 
     public override void Move(Vector3 moveDirection, float moveSpeed)
@@ -25,7 +28,7 @@ public class TankMover : Mover
 
     public override void Rotate(float rotateSpeed)
     {
-        // Rotate the tank mover in the direction of the rotateDirection vector
+        // Rotate the tank mover
         tf.Rotate(0, rotateSpeed, 0);
     }
 }
