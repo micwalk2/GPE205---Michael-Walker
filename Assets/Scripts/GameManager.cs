@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    GameManager instance;
+    public static GameManager instance;
 
     // Prefabs
     public GameObject playerControllerPrefab;
     public GameObject tankPawnPrefab;
+
+    // List that holds our player(s)
+    public List<PlayerController> players;
 
     private void Awake()
     {

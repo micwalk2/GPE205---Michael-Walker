@@ -13,6 +13,17 @@ public class PlayerController : Controller
     // Start is called before the first frame update
     public override void Start()
     {
+        // If we have a GameManager...
+        if(GameManager.instance != null)
+        {
+            // ...and it tracks the players...
+            if(GameManager.instance.players != null)
+            {
+                // ...register with the GameManager
+                GameManager.instance.players.Add(this);
+            }
+        }
+
         // Run the Start method from the base class
         base.Start();
     }
@@ -25,6 +36,21 @@ public class PlayerController : Controller
         
         // Run the Update method from the base class
         base.Update();
+    }
+
+    // Called when object is destroyed
+    public void OnDestroy()
+    {
+        // If we have a GameManager...
+        if(GameManager.instance != null)
+        {
+            // ...and it tracks the players...
+            if(GameManager.instance.players != null)
+            {
+                // ...reregister from the GameManager
+                GameManager.instance.players.Remove(this);
+            }
+        }
     }
 
     public override void ProcessInput()
