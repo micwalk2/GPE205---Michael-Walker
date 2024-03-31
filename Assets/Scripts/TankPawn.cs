@@ -2,11 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class TankPawn : Pawn
 {
     // Start is called before the first frame update
     public override void Start()
     {
+        // If we have a GameManager...
+        if (GameManager.instance != null)
+        {
+            // ...and it tracks the pawns...
+            if (GameManager.instance.pawns != null)
+            {
+                // ...register with the GameManager
+                GameManager.instance.pawns.Add(this);
+            }
+        }
+
         base.Start();
     }
 
@@ -14,6 +26,20 @@ public class TankPawn : Pawn
     public override void Update()
     {
         base.Update();
+    }
+
+    public void OnDestroy()
+    {
+        // If we have a GameManager...
+        if (GameManager.instance != null)
+        {
+            // ...and it tracks the pawns...
+            if (GameManager.instance.pawns != null)
+            {
+                // ...reregister from the GameManager
+                GameManager.instance.pawns.Remove(this);
+            }
+        }
     }
 
     // Move the TankPawn forward

@@ -21,6 +21,9 @@ public class TankMover : Mover
 
     public override void Move(Vector3 moveDirection, float moveSpeed)
     {
+        // Freeze the rotation of the tank mover
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
         // Move the tank mover in the direction of the moveDirection vector
         Vector3 moveVector = moveDirection.normalized * moveSpeed * Time.deltaTime;
         rb.MovePosition(rb.position + moveVector);

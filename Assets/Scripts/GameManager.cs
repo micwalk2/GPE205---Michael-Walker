@@ -9,9 +9,11 @@ public class GameManager : MonoBehaviour
     // Prefabs
     public GameObject playerControllerPrefab;
     public GameObject tankPawnPrefab;
+    public GameObject playerSpawn;
 
-    // List that holds our player(s)
+    // Lists that holds our player(s) and pawn(s)
     public List<PlayerController> players;
+    public List<TankPawn> pawns;
 
     private void Awake()
     {
@@ -42,11 +44,17 @@ public class GameManager : MonoBehaviour
 
     public void SpawnPlayer()
     {
+        // Get spawn point transform
+        Transform spawnPoint = playerSpawn.transform;
+
+        // Get the Vector3 position of the spawn point
+        Vector3 spawnPointPos = spawnPoint.position;
+
         // Spawn the player controller at the origin
-        GameObject newPlayerObj = Instantiate(playerControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+        GameObject newPlayerObj = Instantiate(playerControllerPrefab, spawnPointPos, Quaternion.identity) as GameObject;
 
         // Spawn the pawn and connect it to the controller
-        GameObject newPawnObj = Instantiate(tankPawnPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+        GameObject newPawnObj = Instantiate(tankPawnPrefab, spawnPointPos, Quaternion.identity) as GameObject;
 
         // Get the PlayerController and Pawn components
         Controller newController = newPlayerObj.GetComponent<Controller>();
