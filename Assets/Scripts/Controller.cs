@@ -20,6 +20,6 @@ public abstract class Controller : MonoBehaviour
         
     }
 
-    // Child classes MUST override the way they process input
-    public abstract void ProcessInput();
+    // Child classes MAY override the way they process input (AIController does not process input)
+    public virtual void ProcessInput(){}
 }

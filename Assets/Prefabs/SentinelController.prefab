@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4749316203900163098
+--- !u!1 &823394319545276974
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2867851775199351756}
-  - component: {fileID: 4610233092635233395}
+  - component: {fileID: 7815214539627528929}
+  - component: {fileID: 7799628700521659449}
   m_Layer: 0
-  m_Name: PlayerController
+  m_Name: SentinelController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2867851775199351756
+--- !u!4 &7815214539627528929
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4749316203900163098}
+  m_GameObject: {fileID: 823394319545276974}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5837879, y: 1.4793725, z: -0.3472824}
+  m_LocalPosition: {x: 3.7898173, y: 3.0104747, z: -17.370026}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4610233092635233395
+--- !u!114 &7799628700521659449
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4749316203900163098}
+  m_GameObject: {fileID: 823394319545276974}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fe075937781a2040af7660dddcd2a8b, type: 3}
+  m_Script: {fileID: 11500000, guid: 80f396568acbcd24e85a67ee82a4ef4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pawn: {fileID: 0}
-  moveForwardKey: 119
-  moveBackwardKey: 115
-  rotateClockwiseKey: 100
-  rotateCounterClockwiseKey: 97
-  shootKey: 32
+  pawn: {fileID: 6395363910852212486, guid: ff40729b1fcceb64cbd41281d716e370, type: 3}
+  currentState: 8
+  targetPlayer: {fileID: 0}
+  chaseDistance: 10
+  attackDistance: 5
+  postDistance: 1
+  targetPost: {fileID: 537127797301484739, guid: 2c43c752aec108d47944b1c16959032c, type: 3}

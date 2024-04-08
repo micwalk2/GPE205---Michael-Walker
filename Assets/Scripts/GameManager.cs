@@ -8,8 +8,11 @@ public class GameManager : MonoBehaviour
 
     // Prefabs
     public GameObject playerControllerPrefab;
+    public GameObject sentinelControllerPrefab;
     public GameObject tankPawnPrefab;
+    public GameObject sentinelPrefab;
     public GameObject playerSpawn;
+    public GameObject sentinelSpawn;
 
     // Lists that holds our player(s) and pawn(s)
     public List<PlayerController> players;
@@ -62,5 +65,24 @@ public class GameManager : MonoBehaviour
 
         // Connect the controller to the pawn
         newController.pawn = newPawn;
+    }
+
+    public void SpawnSentinel()
+    {
+        // Get spawn point transform
+        Transform spawnPoint = sentinelSpawn.transform;
+        
+        // Get the Vector3 position of the spawn point
+        Vector3 spawnPointPos = spawnPoint.position;
+
+        // Spawn the sentinel controller at the origin
+        GameObject newSentinelObj = Instantiate(sentinelControllerPrefab, spawnPointPos, Quaternion.identity) as GameObject;
+
+        // Spawn the sentinel and connect it to the controller
+        GameObject newSentinelPawnObj = Instantiate(sentinelPrefab, spawnPointPos, Quaternion.identity) as GameObject;
+
+        // Get the SentinelController and Sentinel components
+        AISentinel newSentinelController = newSentinelObj.GetComponent<AISentinel>();
+        Pawn newSentinel = newSentinelPawnObj.GetComponent<Pawn>();
     }
 }

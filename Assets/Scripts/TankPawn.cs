@@ -5,6 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class TankPawn : Pawn
 {
+    // Private variable to hold the next time it can shoot
+    private float nextShootTime;
+
     // Start is called before the first frame update
     public override void Start()
     {
@@ -18,6 +21,9 @@ public class TankPawn : Pawn
                 GameManager.instance.pawns.Add(this);
             }
         }
+
+        // Set nextShootTime to the current time
+        nextShootTime = Time.time;
 
         base.Start();
     }
@@ -98,5 +104,34 @@ public class TankPawn : Pawn
         {
             Debug.LogWarning("WARNING: No Mover in TankPawn.RotateCounterClockwise()!");
         }
+    }
+
+    public override void Shoot()
+    {
+        // Calculate the number of seconds per shot
+        float secondsPerShot = 1 / shotsPerSecond;
+
+        // Check to see if it's time to shoot...
+        if (Time.time > nextShootTime)
+        {
+            // ...shoot and reset the timer
+            shooter.Shoot(shellPrefab, fireForce, damageDone, lifespan);
+            nextShootTime = Time.time + secondsPerShot;
+        }
+        else
+        {
+            // ...otherwise, log a warning
+            Debug.LogWarning("WARNING: TankPawn.Shoot() called too soon!");
+        }
+    }
+
+    public override void RotateTowards(Vector3 targetPosition)
+    {
+        // Find the vector to our target
+        Vector3 vectorToTarget = targetPosition - transform.position;
+        // Find the rotation to look down that vector
+        Quaternion targetRotation = Quaternion.LookRotation(vectorToTarget, Vector3.up);
+        // Rotate closer to that vector, but don't rotate more than turn speed allows in a single frame
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
     }
 }

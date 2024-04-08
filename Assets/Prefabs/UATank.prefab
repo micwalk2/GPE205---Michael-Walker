@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4257442062781614744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2112505556182378003}
+  m_Layer: 0
+  m_Name: FiringTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2112505556182378003
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4257442062781614744}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.012480888, y: -0, z: -0, w: 0.9999221}
+  m_LocalPosition: {x: 0.0029997826, y: 0.595, z: 1.097}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2268701093846697241}
+  m_LocalEulerAnglesHint: {x: 1.43, y: 0, z: 0}
 --- !u!1001 &1798821787312104178
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54,7 +85,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1e9754a7f9b42674f95e0aacbbc2eabe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2112505556182378003}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e9754a7f9b42674f95e0aacbbc2eabe, type: 3}
       insertIndex: -1
@@ -68,6 +102,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e9754a7f9b42674f95e0aacbbc2eabe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8653273282423278348}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e9754a7f9b42674f95e0aacbbc2eabe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2228588561634093818}
   m_SourcePrefab: {fileID: 100100000, guid: 1e9754a7f9b42674f95e0aacbbc2eabe, type: 3}
 --- !u!1 &1456874018361941923 stripped
 GameObject:
@@ -89,6 +126,12 @@ MonoBehaviour:
   moveSpeed: 10
   turnSpeed: 150
   mover: {fileID: 0}
+  shooter: {fileID: 0}
+  shellPrefab: {fileID: 1588143265825623705, guid: 74a85a8d035d23b46834a3ce07a3cf9b, type: 3}
+  fireForce: 20
+  damageDone: 10
+  lifespan: 1.5
+  shotsPerSecond: 1
 --- !u!114 &6458742303207581181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,3 +192,21 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.7887652
   m_Center: {x: 0.0078087747, y: 0.67, z: 0.111234754}
+--- !u!114 &-2228588561634093818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456874018361941923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c37b9217aa5787842b513c8ae22d6279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firepointTransform: {fileID: 2112505556182378003}
+--- !u!4 &2268701093846697241 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1e9754a7f9b42674f95e0aacbbc2eabe, type: 3}
+  m_PrefabInstance: {fileID: 1798821787312104178}
+  m_PrefabAsset: {fileID: 0}
