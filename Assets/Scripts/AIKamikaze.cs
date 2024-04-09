@@ -17,7 +17,7 @@ public class AIKamikaze : AIController
     public override void Start()
     {
         // Set the current state to IDLE
-        ChangeState(AIState.IDLE);
+        ChangeState(AIState.CHOOSETARGET);
     }
 
     // Update is called once per frame
@@ -31,13 +31,37 @@ public class AIKamikaze : AIController
     {
         switch(currentState)
         {
+            case AIState.CHOOSETARGET:
+                {
+                    // Do actions for the CHOOSETARGET state
+                    Debug.Log("Sentinel is choosing a target...");
+                    DoChooseTargetState();
+                    // Check if the player can be heard
+                    if (CanHear(targetPlayer))
+                    {
+                        ChangeState(AIState.SCAN);
+                    }
+                    // Check if the player can be seen
+                    if (CanSee(targetPlayer))
+                    {
+                        ChangeState(AIState.CHASE);
+                    }
+                    // Set the AI state to IDLE
+                    ChangeState(AIState.IDLE);
+                    break;
+                }
             case AIState.IDLE:
                 {
                     // Do actions for the IDLE state
                     Debug.Log("Kamikaze is idle...");
                     DoIdleState();
-                    // Check if the player is close enough to chase
-                    if (IsDistanceLessThan(targetPlayer, chaseDistance))
+                    // Check if the player can be heard
+                    if (CanHear(targetPlayer))
+                    {
+                        ChangeState(AIState.SCAN);
+                    }
+                    // Check if the player can be seen
+                    if (CanSee(targetPlayer))
                     {
                         ChangeState(AIState.CHASE);
                     }
@@ -49,7 +73,7 @@ public class AIKamikaze : AIController
                     Debug.Log("Kamikaze is chasing...");
                     DoChaseState(targetPlayer);
                     // Check if the player is too far away
-                    if (!IsDistanceLessThan(targetPlayer, chaseDistance))
+                    if (!CanSee(targetPlayer))
                     {
                         ChangeState(AIState.IDLE);
                     }

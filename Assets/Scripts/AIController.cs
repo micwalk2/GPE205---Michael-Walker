@@ -9,6 +9,7 @@ public class AIController : Controller
     public enum AIState
     {
         IDLE,
+        SCAN,
         CHASE,
         ATTACK,
         RETURNTOPOST,
@@ -27,6 +28,14 @@ public class AIController : Controller
 
     // Create a public GameObject variable that holds the target player
     public GameObject targetPlayer;
+
+    // Create a public float variable to store the hearing distance
+    public float hearingDistance;
+
+    // Create a public float variable to store the field of view
+    public float fieldOfView;
+    // Create a public float variable to store the vision distance
+    public float visionDistance;
 
     // Start is called before the first frame update
     public override void Start()
@@ -108,6 +117,12 @@ public class AIController : Controller
         TargetPlayerOne();
     }
 
+    public void DoScanState()
+    {
+        // Rotate the pawn to "look" for the player
+        pawn.RotateCounterClockwise();
+    }
+
     public void TargetPlayerOne()
     {
         // If the GameManager exists
@@ -141,6 +156,79 @@ public class AIController : Controller
         }
         else
         {
+            return false;
+        }
+    }
+
+    public bool CanHear(GameObject target)
+    {
+        // Get the target's NoiseMaker component
+        NoiseMaker targetNoiseMaker = target.GetComponent<NoiseMaker>();
+
+        // If the target doesn't have a NoiseMaker component...
+        if (targetNoiseMaker == null)
+        {
+            // ...then return false
+            return false;
+        }
+        // If the target is making no noise, target can also not be heard...
+        if (targetNoiseMaker.currentVolume <= 0)
+        {
+            return false;
+        }
+        // If they are making noise, add the VolumeDistance in the NoiseMaker to the hearingDistance of this AI
+        float totalDistance = targetNoiseMaker.currentVolume + hearingDistance;
+        // If the distance between our pawn and the target is less than the total distance...
+        if (Vector3.Distance(pawn.transform.position, target.transform.position) <= totalDistance)
+        {
+            // ...we can hear the target
+            return true;
+        }
+        else
+        {
+            // ...otherwise, we can't hear the target
+            return false;
+        }
+    }
+
+    public bool CanSee(GameObject target)
+    {
+        // Create a RaycastHit variable to store information about what we hit
+        RaycastHit hit;
+
+        // Find the vector from the AI to the target
+        Vector3 AIToTargetVector = target.transform.position - transform.position;
+
+        // Find the angle between the direction our AI is facing (forward) and the vector to the target
+        float angleToTarget = Vector3.Angle(AIToTargetVector, pawn.transform.forward);
+
+        // If that angle is less than our field of view...
+        if ((angleToTarget < fieldOfView))
+        {
+            // ...and we cast a ray from the AI to the target...
+            if (Physics.Raycast(transform.position, AIToTargetVector, out hit, visionDistance))
+            {
+                // ...and we hit the target
+                if (hit.transform.gameObject == target)
+                {
+                    // ...then we can see the target
+                    return true;
+                }
+                // ...raycast did not hit the target, we cannot see the target
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                // ...raycast did not hit anything, we cannot see the target
+                return false;
+            }
+        }
+        else
+        {
+            // ...the angle is not in our field of view, we cannot see the target
             return false;
         }
     }

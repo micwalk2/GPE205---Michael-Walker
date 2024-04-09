@@ -39,15 +39,20 @@ public class AISentinel : AIController
                     // Do actions for the CHOOSETARGET state
                     Debug.Log("Sentinel is choosing a target...");
                     DoChooseTargetState();
-                    // Check if the player is close enough to chase
-                    if (IsDistanceLessThan(targetPlayer, chaseDistance))
+                    // Check if the player can be heard
+                    if (CanHear(targetPlayer))
                     {
+                        // Scan for player
+                        ChangeState(AIState.SCAN);
+                    }
+                    // Check if the player can be seen
+                    if (CanSee(targetPlayer))
+                    {
+                        // Chase the player
                         ChangeState(AIState.CHASE);
                     }
-                    else
-                    {
-                        ChangeState(AIState.IDLE);
-                    }
+                    // Set the AI state to IDLE
+                    ChangeState(AIState.IDLE);
                     break;
                 }
             case AIState.IDLE:
@@ -55,8 +60,13 @@ public class AISentinel : AIController
                     // Do actions for the IDLE state
                     Debug.Log("Sentinel is idle...");
                     DoIdleState();
-                    // Check if the player is close enough to chase
-                    if (IsDistanceLessThan(targetPlayer, chaseDistance))
+                    // Check if the player can be heard
+                    if (CanHear(targetPlayer))
+                    {
+                        ChangeState(AIState.SCAN);
+                    }
+                    // Check if the player can be seen
+                    if (CanSee(targetPlayer))
                     {
                         ChangeState(AIState.CHASE);
                     }
@@ -68,17 +78,17 @@ public class AISentinel : AIController
                     Debug.Log("Sentinel is chasing...");
                     DoChaseState(targetPlayer);
                     // Check if the player is too far away
-                    if (!IsDistanceLessThan(targetPlayer, chaseDistance))
+                    if (!CanHear(targetPlayer) && !CanSee(targetPlayer))
                     {
                         ChangeState(AIState.RETURNTOPOST);
                     }
                     // Check if the player is close enough to attack
-                    if (IsDistanceLessThan(targetPlayer, attackDistance))
+                    if (IsDistanceLessThan(targetPlayer, attackDistance) && CanSee(targetPlayer))
                     {
                         ChangeState(AIState.ATTACK);
                     }
                     // Check if the Sentinel is at its post
-                    if (IsDistanceLessThan(targetPost, postDistance))
+                    if (IsDistanceLessThan(targetPost, postDistance) && !CanHear(targetPlayer) && !CanSee(targetPlayer))
                     {
                         ChangeState(AIState.IDLE);
                     }
@@ -90,12 +100,12 @@ public class AISentinel : AIController
                     Debug.Log("Sentinel is attacking...");
                     DoAttackState(targetPlayer);
                     // Check if the player is too far away
-                    if (!IsDistanceLessThan(targetPlayer, chaseDistance))
+                    if (!CanHear(targetPlayer) && !CanSee(targetPlayer))
                     {
                         ChangeState(AIState.RETURNTOPOST);
                     }
                     // Check if the player is close enough to chase
-                    if (IsDistanceLessThan(targetPlayer, chaseDistance))
+                    if (CanSee(targetPlayer))
                     {
                         ChangeState(AIState.CHASE);
                     }
@@ -107,12 +117,17 @@ public class AISentinel : AIController
                     Debug.Log("Sentinel is returning to post...");
                     DoReturnToPostState(targetPost);
                     // Check if the Sentinel is at its post
-                    if (IsDistanceLessThan(targetPost, postDistance))
+                    if (IsDistanceLessThan(targetPost, postDistance) && !CanHear(targetPlayer) && !CanSee(targetPlayer))
                     {
                         ChangeState(AIState.IDLE);
                     }
+                    // Check to see if player can be heard
+                    if (CanHear(targetPlayer))
+                    {
+                        ChangeState(AIState.SCAN);
+                    }
                     // Check if the player is close enough to chase
-                    if (IsDistanceLessThan(targetPlayer, chaseDistance))
+                    if (CanSee(targetPlayer))
                     {
                         ChangeState(AIState.CHASE);
                     }

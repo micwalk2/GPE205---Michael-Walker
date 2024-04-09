@@ -24,7 +24,7 @@ public class AIRover : AIController
     public override void Start()
     {
         // Set the current state to PATROL
-        currentState = AIState.PATROL;
+        currentState = AIState.CHOOSETARGET;
     }
 
     // Update is called once per frame
@@ -38,13 +38,27 @@ public class AIRover : AIController
     {
         switch(currentState)
         {
+            case AIState.CHOOSETARGET:
+                {
+                    // Do actions for the CHOOSETARGET state
+                    Debug.Log("Sentinel is choosing a target...");
+                    DoChooseTargetState();
+                    // Set the AI state to PATROL
+                    ChangeState(AIState.PATROL);
+                    break;
+                }
             case AIState.PATROL:
                 {
                     // Do actions for the PATROL state
                     Debug.Log("Rover is patrolling...");
                     DoPatrolState();
-                    // Check if the player is close enough to chase
-                    if (IsDistanceLessThan(targetPlayer, chaseDistance))
+                    // Check to see if player can be heard
+                    if (CanHear(targetPlayer))
+                    {
+                        ChangeState(AIState.SCAN);
+                    }
+                    // Check to see if player can be seen
+                    if (CanSee(targetPlayer))
                     {
                         ChangeState(AIState.CHASE);
                     }
@@ -56,7 +70,7 @@ public class AIRover : AIController
                     Debug.Log("Rover is chasing...");
                     DoChaseState(targetPlayer);
                     // Check if the player is too far away
-                    if (!IsDistanceLessThan(targetPlayer, chaseDistance))
+                    if (!IsDistanceLessThan(targetPlayer, chaseDistance) && !CanHear(targetPlayer) && !CanSee(targetPlayer))
                     {
                         ChangeState(AIState.PATROL);
                     }
@@ -73,7 +87,7 @@ public class AIRover : AIController
                     Debug.Log("Rover is attacking...");
                     DoAttackState(targetPlayer);
                     // Check if the player is too far away
-                    if (!IsDistanceLessThan(targetPlayer, attackDistance))
+                    if (!IsDistanceLessThan(targetPlayer, attackDistance) && !CanHear(targetPlayer) && !CanSee(targetPlayer))
                     {
                         ChangeState(AIState.CHASE);
                     }
@@ -84,8 +98,13 @@ public class AIRover : AIController
                     // Do actions for the RETURNTOPATROL state
                     Debug.Log("Rover is returning to patrol...");
                     DoReturnToPatrolState();
-                    // Check if the player is close enough to chase
-                    if (IsDistanceLessThan(targetPlayer, chaseDistance))
+                    // Check to see if player can be heard
+                    if (CanHear(targetPlayer))
+                    {
+                        ChangeState(AIState.SCAN);
+                    }
+                    // Check to see if player can be seen
+                    if (CanSee(targetPlayer))
                     {
                         ChangeState(AIState.CHASE);
                     }
