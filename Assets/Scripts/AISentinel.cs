@@ -39,19 +39,7 @@ public class AISentinel : AIController
                     // Do actions for the CHOOSETARGET state
                     Debug.Log("Sentinel is choosing a target...");
                     DoChooseTargetState();
-                    // Check if the player can be heard
-                    if (CanHear(targetPlayer))
-                    {
-                        // Scan for player
-                        ChangeState(AIState.SCAN);
-                    }
-                    // Check if the player can be seen
-                    if (CanSee(targetPlayer))
-                    {
-                        // Chase the player
-                        ChangeState(AIState.CHASE);
-                    }
-                    // Set the AI state to IDLE
+                    // Set AI state to IDLE
                     ChangeState(AIState.IDLE);
                     break;
                 }

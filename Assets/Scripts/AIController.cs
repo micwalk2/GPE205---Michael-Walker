@@ -179,7 +179,7 @@ public class AIController : Controller
         // If they are making noise, add the VolumeDistance in the NoiseMaker to the hearingDistance of this AI
         float totalDistance = targetNoiseMaker.currentVolume + hearingDistance;
         // If the distance between our pawn and the target is less than the total distance...
-        if (Vector3.Distance(pawn.transform.position, target.transform.position) <= totalDistance)
+        if (Vector3.Distance(transform.position, target.transform.position) <= totalDistance)
         {
             // ...we can hear the target
             return true;
@@ -200,7 +200,7 @@ public class AIController : Controller
         Vector3 AIToTargetVector = target.transform.position - transform.position;
 
         // Find the angle between the direction our AI is facing (forward) and the vector to the target
-        float angleToTarget = Vector3.Angle(AIToTargetVector, pawn.transform.forward);
+        float angleToTarget = Vector3.Angle(AIToTargetVector, transform.forward);
 
         // If that angle is less than our field of view...
         if ((angleToTarget < fieldOfView))

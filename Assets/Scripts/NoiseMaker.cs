@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class NoiseMaker : MonoBehaviour
 {
-    public float volumeDistance;
+    public float volumeDistance = 10;
     [HideInInspector] public float currentVolume;
 }
