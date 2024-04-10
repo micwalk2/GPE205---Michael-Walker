@@ -10,7 +10,8 @@ public class TankShooter : Shooter
     // Start is called before the first frame update
     public override void Start()
     {
-        
+        // Get the Transform of FirepointTransform in prefab
+        firepointTransform = this.transform.Find("FirepointTransform");
     }
 
     // Update is called once per frame

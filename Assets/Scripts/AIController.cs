@@ -38,7 +38,7 @@ public class AIController : Controller
     public float visionDistance;
 
     // Create a public variable to store a layer mask for vision
-    public LayerMask sightMask;
+    // public LayerMask sightMask;
 
     // Start is called before the first frame update
     public override void Start()
@@ -218,7 +218,7 @@ public class AIController : Controller
         RaycastHit hit;
 
         // If we don't cast a ray from the AI to the target, we cannot see the target
-        if (!Physics.Raycast(transform.position, AIToTargetVector, out hit, visionDistance, sightMask))
+        if (!Physics.Raycast(transform.position, AIToTargetVector, out hit, visionDistance))
         {
             return false;
         }
