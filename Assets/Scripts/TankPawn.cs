@@ -6,7 +6,7 @@ using UnityEngine;
 public class TankPawn : Pawn
 {
     // Variable to hold the NoiseMaker component
-    public NoiseMaker noiseMaker;
+    [HideInInspector] public NoiseMaker noiseMaker;
 
     // Private variable to hold the next time it can shoot
     private float nextShootTime;
@@ -62,16 +62,32 @@ public class TankPawn : Pawn
         {
             // Move the TankPawn forward
             mover.Move(transform.forward, moveSpeed);
-            // Set NoiseMaker to make noise
-            noiseMaker.currentVolume = noiseMaker.volumeDistance;
+
+            // Check to see if there is a NoiseMaker component
+            if (noiseMaker != null)
+            {
+                // Check if the player is moving
+                if (mover.transform.hasChanged)
+                {
+                    // If the player is moving, set NoiseMaker to make noise and isMoving to true
+                    noiseMaker.currentVolumeDistance = noiseMaker.volumeDistance;
+                    noiseMaker.isMoving = true;
+                }
+                else
+                {
+                    // If the player is not moving, set NoiseMaker volume to 0 and isMoving to false
+                    noiseMaker.currentVolumeDistance = 0f;
+                    noiseMaker.isMoving = false;
+                }
+
+                // Reset the hasChanged flag
+                mover.transform.hasChanged = false;
+            }
         }
         else
         {
             Debug.LogWarning("WARNING: No Mover in TankPawn.MoveForward()!");
         }
-
-        // Set the NoiseMaker to stop making noise
-        noiseMaker.currentVolume = 0f;
     }
 
     public override void MoveBackward()
@@ -81,16 +97,32 @@ public class TankPawn : Pawn
         {
             // Move the TankPawn backward
             mover.Move(transform.forward, -moveSpeed);
-            // Set NoiseMaker to make noise
-            noiseMaker.currentVolume = noiseMaker.volumeDistance;
+
+            // Check to see if there is a NoiseMaker component
+            if (noiseMaker != null)
+            {
+                // Check if the player is moving
+                if (mover.transform.hasChanged)
+                {
+                    // If the player is moving, set NoiseMaker to make noise and isMoving to true
+                    noiseMaker.currentVolumeDistance = noiseMaker.volumeDistance;
+                    noiseMaker.isMoving = true;
+                }
+                else
+                {
+                    // If the player is not moving, set NoiseMaker volume to 0 and isMoving to false
+                    noiseMaker.currentVolumeDistance = 0f;
+                    noiseMaker.isMoving = false;
+                }
+
+                // Reset the hasChanged flag
+                mover.transform.hasChanged = false;
+            }
         }
         else
         {
             Debug.LogWarning("WARNING: No Mover in TankPawn.MoveBackward()!");
         }
-
-        // Set the NoiseMaker to stop making noise
-        noiseMaker.currentVolume = 0f;
 
     }
 
@@ -101,16 +133,32 @@ public class TankPawn : Pawn
         {
             // Rotate the TankPawn clockwise
             mover.Rotate(turnSpeed);
-            // Set NoiseMaker to make noise
-            noiseMaker.currentVolume = noiseMaker.volumeDistance;
+
+            // Check to see if there is a NoiseMaker component
+            if (noiseMaker != null)
+            {
+                // Check if the player is moving
+                if (mover.transform.hasChanged)
+                {
+                    // If the player is moving, set NoiseMaker to make noise and isMoving to true
+                    noiseMaker.currentVolumeDistance = noiseMaker.volumeDistance;
+                    noiseMaker.isMoving = true;
+                }
+                else
+                {
+                    // If the player is not moving, set NoiseMaker volume to 0 and isMoving to false
+                    noiseMaker.currentVolumeDistance = 0f;
+                    noiseMaker.isMoving = false;
+                }
+
+                // Reset the hasChanged flag
+                mover.transform.hasChanged = false;
+            }
         }
         else
         {
             Debug.LogWarning("WARNING: No Mover in TankPawn.RotateClockwise()!");
         }
-
-        // Set the NoiseMaker to stop making noise
-        noiseMaker.currentVolume = 0f;
     }
 
     public override void RotateCounterClockwise()
@@ -120,16 +168,32 @@ public class TankPawn : Pawn
         {
             // Rotate the TankPawn counterclockwise
             mover.Rotate(-turnSpeed);
-            // Set NoiseMaker to make noise
-            noiseMaker.currentVolume = noiseMaker.volumeDistance;
+
+            // Check to see if there is a NoiseMaker component
+            if (noiseMaker != null)
+            {
+                // Check if the player is moving
+                if (mover.transform.hasChanged)
+                {
+                    // If the player is moving, set NoiseMaker to make noise and isMoving to true
+                    noiseMaker.currentVolumeDistance = noiseMaker.volumeDistance;
+                    noiseMaker.isMoving = true;
+                }
+                else
+                {
+                    // If the player is not moving, set NoiseMaker volume to 0 and isMoving to false
+                    noiseMaker.currentVolumeDistance = 0f;
+                    noiseMaker.isMoving = false;
+                }
+
+                // Reset the hasChanged flag
+                mover.transform.hasChanged = false;
+            }
         }
         else
         {
             Debug.LogWarning("WARNING: No Mover in TankPawn.RotateCounterClockwise()!");
         }
-
-        // Set the NoiseMaker to stop making noise
-        noiseMaker.currentVolume = 0f;
     }
 
     public override void Shoot()
@@ -143,17 +207,22 @@ public class TankPawn : Pawn
             // ...shoot and reset the timer
             shooter.Shoot(shellPrefab, fireForce, damageDone, lifespan);
             nextShootTime = Time.time + secondsPerShot;
-            // Set NoiseMaker to make noise
-            noiseMaker.currentVolume = noiseMaker.volumeDistance * 1.5f;
+            
+            // Check to see if there is a NoiseMaker component
+            if (noiseMaker != null)
+            {
+                // Set NoiseMaker to make noise from shooting
+                noiseMaker.currentVolumeDistance = noiseMaker.volumeDistance * 1.5f;
+
+                // Reset the NoiseMaker volume
+                noiseMaker.currentVolumeDistance = 0f;
+            }
         }
         else
         {
             // ...otherwise, log a warning
             Debug.LogWarning("WARNING: TankPawn.Shoot() called too soon!");
         }
-
-        // Set the NoiseMaker to stop making noise
-        noiseMaker.currentVolume = 0f;
     }
 
     public override void RotateTowards(Vector3 targetPosition)

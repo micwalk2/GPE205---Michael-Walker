@@ -346,6 +346,14 @@ PrefabInstance:
       propertyPath: targetPlayer
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: -6177558483395010770, guid: 5e04c0f20ce4b4e4eaf9fd97dd4532fc, type: 3}
+      propertyPath: attackDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -6177558483395010770, guid: 5e04c0f20ce4b4e4eaf9fd97dd4532fc, type: 3}
+      propertyPath: sightMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: -3713564690354467922, guid: 5e04c0f20ce4b4e4eaf9fd97dd4532fc, type: 3}
       propertyPath: moveSpeed
       value: 6
@@ -1608,6 +1616,9 @@ MonoBehaviour:
   hearingDistance: 0
   fieldOfView: 0
   visionDistance: 0
+  sightMask:
+    serializedVersion: 2
+    m_Bits: 0
   chaseDistance: 0
   attackDistance: 0
   postDistance: 0

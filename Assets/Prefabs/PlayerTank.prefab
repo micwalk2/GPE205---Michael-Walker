@@ -81,7 +81,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1e9754a7f9b42674f95e0aacbbc2eabe, type: 3}
       propertyPath: m_Name
-      value: UATank
+      value: PlayerTank
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -224,8 +224,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63999f3c62c48ee49a879605ceefc87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volumeDistance: 50
-  currentVolume: 0
+  volumeDistance: 10
+  currentVolumeDistance: 0
+  isMoving: 0
 --- !u!114 &-8736194271769523016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,8 +239,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86186b9645b8a724d86bc010e8679779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 10
-  maxHealth: 10
+  currentHealth: 50
+  maxHealth: 50
 --- !u!4 &2268701093846697241 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1e9754a7f9b42674f95e0aacbbc2eabe, type: 3}

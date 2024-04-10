@@ -37,6 +37,9 @@ public class AIController : Controller
     // Create a public float variable to store the vision distance
     public float visionDistance;
 
+    // Create a public variable to store a layer mask for vision
+    public LayerMask sightMask;
+
     // Start is called before the first frame update
     public override void Start()
     {
@@ -55,6 +58,8 @@ public class AIController : Controller
 
     public void ChangeState(AIState newState)
     {
+        Debug.Log("Changing state from " + currentState + " to " + newState + "!");
+
         // Change the current state to the new state
         currentState = newState;
         // Save the time when we changed states
@@ -162,6 +167,8 @@ public class AIController : Controller
 
     public bool CanHear(GameObject target)
     {
+        Debug.Log("CanHear() called");
+
         // Get the target's NoiseMaker component
         NoiseMaker targetNoiseMaker = target.GetComponent<NoiseMaker>();
 
@@ -172,12 +179,12 @@ public class AIController : Controller
             return false;
         }
         // If the target is making no noise, target can also not be heard...
-        if (targetNoiseMaker.currentVolume <= 0)
+        if (!targetNoiseMaker.isMoving)
         {
             return false;
         }
         // If they are making noise, add the VolumeDistance in the NoiseMaker to the hearingDistance of this AI
-        float totalDistance = targetNoiseMaker.currentVolume + hearingDistance;
+        float totalDistance = targetNoiseMaker.currentVolumeDistance + hearingDistance;
         // If the distance between our pawn and the target is less than the total distance...
         if (Vector3.Distance(transform.position, target.transform.position) <= totalDistance)
         {
@@ -193,8 +200,7 @@ public class AIController : Controller
 
     public bool CanSee(GameObject target)
     {
-        // Create a RaycastHit variable to store information about what we hit
-        RaycastHit hit;
+        Debug.Log("CanSee() called");
 
         // Find the vector from the AI to the target
         Vector3 AIToTargetVector = target.transform.position - transform.position;
@@ -202,34 +208,22 @@ public class AIController : Controller
         // Find the angle between the direction our AI is facing (forward) and the vector to the target
         float angleToTarget = Vector3.Angle(AIToTargetVector, transform.forward);
 
-        // If that angle is less than our field of view...
-        if ((angleToTarget < fieldOfView))
+        // If the angle is not in our field of view, we cannot see the target
+        if (angleToTarget >= fieldOfView)
         {
-            // ...and we cast a ray from the AI to the target...
-            if (Physics.Raycast(transform.position, AIToTargetVector, out hit, visionDistance))
-            {
-                // ...and we hit the target
-                if (hit.transform.gameObject == target)
-                {
-                    // ...then we can see the target
-                    return true;
-                }
-                // ...raycast did not hit the target, we cannot see the target
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                // ...raycast did not hit anything, we cannot see the target
-                return false;
-            }
-        }
-        else
-        {
-            // ...the angle is not in our field of view, we cannot see the target
             return false;
         }
+
+        // Create a RaycastHit variable to store information about what we hit
+        RaycastHit hit;
+
+        // If we don't cast a ray from the AI to the target, we cannot see the target
+        if (!Physics.Raycast(transform.position, AIToTargetVector, out hit, visionDistance, sightMask))
+        {
+            return false;
+        }
+
+        // If we hit the target, then we can see the target
+        return hit.transform.gameObject == target;
     }
 }

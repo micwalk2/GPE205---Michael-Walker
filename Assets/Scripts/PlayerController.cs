@@ -12,6 +12,9 @@ public class PlayerController : Controller
     public KeyCode rotateCounterClockwiseKey;
     public KeyCode shootKey;
 
+    // Variable to store NoiseMaker component
+    public NoiseMaker noiseMaker;
+
     // Start is called before the first frame update
     public override void Start()
     {
@@ -26,6 +29,9 @@ public class PlayerController : Controller
             }
         }
 
+        // Get the NoiseMaker component
+        noiseMaker = GetComponent<NoiseMaker>();
+
         // Run the Start method from the base class
         base.Start();
     }
@@ -35,7 +41,7 @@ public class PlayerController : Controller
     {
         // Process player input
         ProcessInput();
-        
+
         // Run the Update method from the base class
         base.Update();
     }
@@ -62,18 +68,22 @@ public class PlayerController : Controller
         {
             pawn.MoveForward();
         }
+
         if (Input.GetKey(moveBackwardKey))
         {
             pawn.MoveBackward();
         }
+
         if (Input.GetKey(rotateClockwiseKey))
         {
             pawn.RotateClockwise();
         }
+
         if (Input.GetKey(rotateCounterClockwiseKey))
         {
             pawn.RotateCounterClockwise();
         }
+
         if (Input.GetKeyDown(shootKey))
         {
             pawn.Shoot();

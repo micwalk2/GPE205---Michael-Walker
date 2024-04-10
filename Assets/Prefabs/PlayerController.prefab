@@ -50,3 +50,4 @@ MonoBehaviour:
   rotateClockwiseKey: 100
   rotateCounterClockwiseKey: 97
   shootKey: 32
+  noiseMaker: {fileID: 1415620606109836206, guid: 46796cbbd642d984ba40bd65ce97ef78, type: 3}
