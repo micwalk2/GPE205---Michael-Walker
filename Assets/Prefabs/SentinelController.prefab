@@ -44,9 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f396568acbcd24e85a67ee82a4ef4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pawn: {fileID: 6395363910852212486, guid: ff40729b1fcceb64cbd41281d716e370, type: 3}
+  pawn: {fileID: 0}
   currentState: 8
   targetPlayer: {fileID: 0}
+  hearingDistance: 0
+  fieldOfView: 0
+  visionDistance: 0
   chaseDistance: 10
   attackDistance: 5
   postDistance: 1

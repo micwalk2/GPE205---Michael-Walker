@@ -101,9 +101,6 @@ PrefabInstance:
       addedObject: {fileID: 146801571911046975}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e9754a7f9b42674f95e0aacbbc2eabe, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5823093045328540181}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e9754a7f9b42674f95e0aacbbc2eabe, type: 3}
-      insertIndex: -1
       addedObject: {fileID: -2843850774919511018}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e9754a7f9b42674f95e0aacbbc2eabe, type: 3}
       insertIndex: -1
@@ -184,31 +181,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 10
   maxHealth: 10
---- !u!114 &5823093045328540181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2057301576334090885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80f396568acbcd24e85a67ee82a4ef4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pawn: {fileID: 8701672885171468633}
-  currentState: 0
-  targetPlayer: {fileID: 0}
-  hearingDistance: 10
-  fieldOfView: 45
-  visionDistance: 20
-  sightMask:
-    serializedVersion: 2
-    m_Bits: 0
-  chaseDistance: 15
-  attackDistance: 5
-  postDistance: 1
-  targetPost: {fileID: 1871052627771945261, guid: 5aa3141e58029bb4bac29c34ada517d6, type: 3}
 --- !u!114 &-2843850774919511018
 MonoBehaviour:
   m_ObjectHideFlags: 0
