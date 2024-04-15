@@ -21,6 +21,21 @@ public class Health : MonoBehaviour
         
     }
 
+    public void Heal(float amount, Pawn pawnThatHealed)
+    {
+        Debug.Log(pawnThatHealed + " healed you for " + amount + "!");
+
+        // Add the amount to the current health
+        currentHealth += amount;
+
+        // If the current health is greater than the max health...
+        if (currentHealth > maxHealth)
+        {
+            // ...set the current health to the max health
+            currentHealth = maxHealth;
+        }
+    }
+
     // Method to take damage
     public void TakeDamage(float damage, Pawn source)
     {
